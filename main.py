@@ -9,7 +9,10 @@ def with_card(colour: str, border_colour: str, padding: str):
         def wrapper(*args, **kwargs):
             content = func(*args, **kwargs)
             tailwind_classes = f"p-{padding} rounded-lg shadow-lg bg-{colour}-100 border border-{border_colour}-500"
-            return Div(Div(content, cls=tailwind_classes), cls=f"card border border-{border_colour}-500 shadow-lg rounded-lg m-4")
+            return Div(
+                Div(content, cls=tailwind_classes),
+                cls=f"card border border-{border_colour}-500 shadow-lg rounded-lg m-4",
+            )
 
         return wrapper
 
@@ -17,8 +20,8 @@ def with_card(colour: str, border_colour: str, padding: str):
 
 
 @with_card(colour="lightblue", border_colour="blue", padding="10")
-def Card():
-    return Div(H1("Title"), P("Description"), P("Another decsription"))
+def Card(title: str, description: str, another_description: str):
+    return Div(H1(title), P(description), P(another_description))
 
 
 @rt("/")
@@ -30,7 +33,15 @@ def get():
 
 @rt("/change")
 def get():
-    return Div(P("Nice to be here!"), A("Go Back!", hx_get="/", hx_target="div"), Card())
+    return Div(
+        P("Nice to be here!"),
+        A("Go Back!", hx_get="/", hx_target="div"),
+        Card(
+            title="Title",
+            description="Description",
+            another_description="Another description",
+        ),
+    )
 
 
 serve()
