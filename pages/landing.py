@@ -32,7 +32,7 @@ def TopBar():
             cls="flex space-x-4",
         ),
         Img(
-            src="/assets/unnamed.webp?height=40&width=40",
+            src="/assets/2020-07-06.jpg?height=40&width=40",
             alt="Profile",
             width="{40}",
             height="{40}",
@@ -55,19 +55,19 @@ def SubHeader():
             ),
             Div(
                 Div(
-                    "Barchart",
-                    Span("Data Analysis"),
+                    Lucide(icon="file-text"),
+                    Span("CV"),
                     cls="flex items-center gap-2 text-red-600",
                 ),
                 Div(
-                    "Piechart",
-                    Span("Visualization"),
-                    cls="flex items-center gap-2 text-red-900",
+                    Lucide(icon="github"),
+                    Span("GitHub"),
+                    cls="flex items-center gap-2 text-red-600",
                 ),
                 Div(
-                    "Code",
-                    Span("Machine Learning"),
-                    cls="flex items-center gap-2 text-bluegray-800",
+                    Lucide(icon="linkedin"),
+                    Span("LinkedIn"),
+                    cls="flex items-center gap-2 text-red-600",
                 ),
                 cls="flex flex-wrap gap-4 mb-6",
             ),
