@@ -18,6 +18,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 ### Set head elements
+# cnd_tailwind = Script(src="https://cdn.tailwindcss.com")
 local_tailwind = Link(rel="stylesheet", href="css/output.css", type="text/css")
 favicon = Link(rel="icon", href="/assets/favicon.ico", type="image/x-icon")
 
@@ -26,6 +27,7 @@ app, rt = fast_app(
     live=True,
     pico=False,
     hdrs=[
+        # cnd_tailwind,
         local_tailwind,
         favicon,
     ],
