@@ -17,6 +17,10 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+### Reload Tailwind CSS, dev only
+if args.reload_tailwind:
+    subprocess.run(["tailwindcss", "-i", "css/input.css", "-o", "css/output.css"])
+
 ### Set head elements
 # cnd_tailwind = Script(src="https://cdn.tailwindcss.com")
 local_tailwind = Link(rel="stylesheet", href="css/output.css", type="text/css")
@@ -40,7 +44,4 @@ def get():
     return Title("collins.data"), Page()
 
 
-### Reload Tailwind CSS, dev only
-if args.reload_tailwind:
-    subprocess.run(["./.tailwindcss", "-i", "css/input.css", "-o", "css/output.css"])
 serve()

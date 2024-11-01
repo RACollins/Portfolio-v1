@@ -8,26 +8,26 @@ def TopBar():
         Div(
             H1(
                 "collins",
-                Span(".data", cls="text-primary"),
-                cls="text-2xl font-bold text-text_primary",
+                Span(".data", cls="text-red-400"),
+                cls="text-2xl font-bold text-slate-500",
             ),
-            P("data scientist & analyst", cls="text-sm text-text_primary"),
+            P("data scientist & analyst", cls="text-sm text-slate-500"),
         ),
         Nav(
             P(
                 "Projects",
                 href="#",
-                cls="text-text_primary hover:text-primary transition-colors",
+                cls="text-slate-500 hover:text-red-400 transition-colors",
             ),
             P(
                 "Publications",
                 href="#",
-                cls="text-text_primary hover:text-primary transition-colors",
+                cls="text-slate-500 hover:text-red-400 transition-colors",
             ),
             P(
                 "About",
                 href="#",
-                cls="text-text_primary hover:text-primary transition-colors",
+                cls="text-slate-500 hover:text-red-400 transition-colors",
             ),
             cls="flex space-x-4",
         ),
@@ -47,27 +47,27 @@ def SubHeader():
         Div(
             H2(
                 "Hi, I'm Richard Collins — a data scientist and analyst.",
-                cls="text-3xl font-bold mb-4 text-text_primary",
+                cls="text-3xl font-bold mb-4 text-slate-500",
             ),
             P(
                 "I transform complex data into actionable insights. With expertise in machine learning, statistical analysis, and data visualization, I help organisations make data-driven decisions.",
-                cls="text-text_primary mb-6",
+                cls="text-slate-500 mb-6",
             ),
             Div(
                 Div(
                     Lucide(icon="file-text"),
                     Span("CV"),
-                    cls="flex items-center gap-2 text-text_primary hover:text-primary transition-colors",
+                    cls="flex items-center gap-2 text-slate-500 hover:text-red-400 transition-colors",
                 ),
                 Div(
                     Lucide(icon="github"),
                     Span("GitHub"),
-                    cls="flex items-center gap-2 text-text_primary hover:text-primary transition-colors",
+                    cls="flex items-center gap-2 text-slate-500 hover:text-red-400 transition-colors",
                 ),
                 Div(
                     Lucide(icon="linkedin"),
                     Span("LinkedIn"),
-                    cls="flex items-center gap-2 text-text_primary hover:text-primary transition-colors",
+                    cls="flex items-center gap-2 text-slate-500 hover:text-red-400 transition-colors",
                 ),
                 cls="flex flex-wrap gap-4 mb-6",
             ),
@@ -79,17 +79,17 @@ def SubHeader():
 
 def FeaturedProjects():
     return Section(
-        H2("Featured Projects", cls="text-xl font-semibold mb-6 text-text_primary"),
+        H2("Featured Projects", cls="text-xl font-semibold mb-6 text-slate-500"),
         Div(
             Div(
                 ProjectCard(Lucide(icon="audio-waveform"), "Project 1", "This is a description of Project 1", "/projects/1"),
                 ProjectCard(Lucide(icon="chart-column-increasing"), "Project 2", "This is a description of Project 2", "/projects/2"),
-                cls="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-text_primary"
+                cls="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-slate-500"
             ),
             Div(
                 ProjectCard(Lucide(icon="chart-network"), "Project 3", "This is a description of Project 3", "/projects/3"),
                 ProjectCard(Lucide(icon="cloud-snow"), "Project 4", "This is a description of Project 4", "/projects/4"),
-                cls="grid grid-cols-1 sm:grid-cols-2 gap-4 text-text_primary"
+                cls="grid grid-cols-1 sm:grid-cols-2 gap-4 text-slate-500"
             ),
             cls="max-w-4xl mx-auto"
         ),
@@ -104,5 +104,5 @@ def Page():
             Main(SubHeader(), FeaturedProjects()),
             cls="max-w-3xl mx-auto px-4 py-8",
         ),
-        cls="min-h-screen bg-gradient-to-br from-orange-100 via-transparent to-gray-100",
+        cls="min-h-screen bg-[radial-gradient(ellipse_at_top_left,_#fff4db_0%,_#ffffff_60%,_#f1f5f9_100%)] animate-gradientX-top-left",
     )

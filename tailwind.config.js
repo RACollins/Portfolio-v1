@@ -1,13 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["**/*.{py,html,js}"],
+  content: ["*.py", "pages/*.py"],
   theme: {
     extend: {
-      colors: {
-        primary: "#d53535",
-        text_primary: "#052d53",
+      animation: {
+        "gradientX-top-left": "gradientX-top-left 7s ease infinite",
+      },
+      keyframes: {
+        "gradientX-top-left": {
+          "0%, 100%": {
+            backgroundSize: "200% 200%",
+            backgroundPosition: "bottom right",
+          },
+          "50%": {
+            backgroundSize: "200% 200%",
+            backgroundPosition: "top left",
+          },
+        },
       },
     },
   },
   plugins: [],
-}
+};
