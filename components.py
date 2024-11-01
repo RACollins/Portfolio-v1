@@ -1,6 +1,46 @@
 from fasthtml.common import *
 from dataclasses import dataclass
 
+def TopBar():
+    return Header(
+        Div(
+            Div(
+                H1(
+                    "collins",
+                    Span(".data", cls="text-red-500"),
+                    cls="text-2xl font-bold text-darkblue-800",
+                ),
+                P("data scientist & analyst", cls="text-sm text-darkblue-800"),
+            ),
+            Nav(
+                P(
+                    "About",
+                    href="#",
+                    cls="text-darkblue-800 hover:text-red-400 transition-colors",
+                ),
+                P(
+                    "Projects",
+                    href="#",
+                    cls="text-darkblue-800 hover:text-red-400 transition-colors",
+                ),
+                P(
+                    "Publications",
+                    href="#",
+                    cls="text-darkblue-800 hover:text-red-400 transition-colors",
+                ),
+                cls="flex space-x-4",
+            ),
+            Img(
+                src="/assets/2020-07-06.jpg?height=40&width=40",
+                alt="Profile",
+                width="{40}",
+                height="{40}",
+                cls="rounded-full",
+            ),
+            cls="flex justify-between items-center max-w-3xl mx-auto px-4 w-full",
+        ),
+        cls="mb-6 pt-6",
+    )
 
 @dataclass
 class ProjectCard:

@@ -2,7 +2,7 @@ import argparse
 import subprocess
 
 from fasthtml.common import *
-from pages.landing import Page
+from pages.landing import LandingPage
 
 ### Bring in command line arguments
 parser = argparse.ArgumentParser(
@@ -41,7 +41,7 @@ app, rt = fast_app(
 ### Set up routes
 @rt("/")
 def get():
-    return Title("collins.data"), Page()
+    return Title("collins.data"), LandingPage()
 
 
 serve()
