@@ -8,27 +8,27 @@ def SubHeader():
         Div(
             H2(
                 "Hi, I'm Richard Collins — a data scientist and analyst.",
-                cls="text-3xl font-bold mb-4 text-darkblue-800",
+                cls="text-3xl font-bold mb-4 text-darkblue-800 dark:text-white",
             ),
             P(
                 "I transform complex data into actionable insights. With expertise in machine learning, statistical analysis, and data visualization, I help organisations make data-driven decisions.",
-                cls="text-darkblue-800 mb-6",
+                cls="text-darkblue-800 dark:text-gray-300 mb-6",
             ),
             Div(
                 Div(
                     Lucide(icon="file-text"),
                     Span("CV"),
-                    cls="flex items-center gap-2 text-slate hover:text-red-400 transition-colors",
+                    cls="flex items-center gap-2 text-slate hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
                 ),
                 Div(
                     Lucide(icon="github"),
                     Span("GitHub"),
-                    cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 transition-colors",
+                    cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
                 ),
                 Div(
                     Lucide(icon="linkedin"),
                     Span("LinkedIn"),
-                    cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 transition-colors",
+                    cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
                 ),
                 cls="flex flex-wrap gap-4 mb-6",
             ),
@@ -89,5 +89,5 @@ def LandingPage():
             ),
             cls="py-8",
         ),
-        cls="min-h-screen bg-[radial-gradient(ellipse_at_top_left,_#fff0d1_0%,_#ffffff_60%,_#cce6ff_100%)] animate-gradientX-top-left",
+        cls="min-h-screen bg-[radial-gradient(ellipse_at_top_left,_#fff0d1_0%,_#ffffff_60%,_#cce6ff_100%)] dark:bg-[radial-gradient(ellipse_at_top_left,_#003196_0%,_#000000_60%,_#6a3400_100%)] animate-gradientX-top-left",
     )
