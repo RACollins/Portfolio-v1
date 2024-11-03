@@ -34,7 +34,17 @@ def TopBar():
             ),
             Div(
                 Button(
-                    Lucide(icon="moon"),
+                    Div(
+                        Div(
+                            Lucide(icon="moon"),
+                            cls="absolute transform transition-all duration-300 dark:-rotate-90 dark:opacity-0",
+                        ),
+                        Div(
+                            Lucide(icon="sun", cls="text-gray-100"),
+                            cls="absolute transform transition-all duration-300 rotate-90 opacity-0 dark:rotate-0 dark:opacity-100",
+                        ),
+                        cls="relative w-5 h-5",
+                    ),
                     cls="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors",
                     onclick="document.documentElement.classList.toggle('dark')",
                 ),
