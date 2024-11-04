@@ -8,7 +8,7 @@ def SubHeader():
         Div(
             H2(
                 "Hi, I'm Richard Collins — a data scientist and analyst.",
-                cls="text-3xl font-bold mb-4 text-darkblue-800 dark:text-white",
+                cls="text-3xl font-bold mb-4 text-darkblue-800 dark:text-gray-200",
             ),
             P(
                 "I transform complex data into actionable insights. With expertise in machine learning, statistical analysis, and data visualization, I help organisations make data-driven decisions.",
@@ -40,7 +40,7 @@ def SubHeader():
 
 def FeaturedProjects():
     return Section(
-        H2("Featured Projects", cls="text-xl font-semibold mb-6 text-darkblue-800"),
+        H2("Featured Projects", cls="text-xl font-semibold mb-6 text-darkblue-800 dark:text-gray-200"),
         Div(
             Div(
                 ProjectCard(
@@ -55,7 +55,7 @@ def FeaturedProjects():
                     "This is a description of Project 2",
                     "/projects/2",
                 ),
-                cls="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-darkblue-800",
+                cls="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-darkblue-800 dark:text-gray-200",
             ),
             Div(
                 ProjectCard(
@@ -70,7 +70,7 @@ def FeaturedProjects():
                     "This is a description of Project 4",
                     "/projects/4",
                 ),
-                cls="grid grid-cols-1 sm:grid-cols-2 gap-4 text-darkblue-800",
+                cls="grid grid-cols-1 sm:grid-cols-2 gap-4 text-darkblue-800 dark:text-gray-200",
             ),
             cls="max-w-4xl mx-auto",
         ),

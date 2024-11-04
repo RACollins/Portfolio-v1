@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 ### Reload Tailwind CSS, dev only
 if args.reload_tailwind:
-    subprocess.run(["tailwindcss", "-i", "css/input.css", "-o", "css/output.css"])
+    subprocess.run(["tailwindcss", "-i", "css/input.css", "-o", "css/output.css", "--minify"])
 
 ### Set head elements
 # cnd_tailwind = Script(src="https://cdn.tailwindcss.com")
