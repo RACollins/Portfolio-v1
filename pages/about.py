@@ -8,7 +8,7 @@ def AboutPage():
         TopBar(),
         Main(
             H2(
-                "About...",
+                "About",
                 cls="max-w-3xl mx-auto px-4 mb-4 text-3xl font-bold text-darkblue-800 dark:text-gray-200",
             ),
             P(
