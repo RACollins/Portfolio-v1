@@ -7,17 +7,23 @@ def TopBar():
     return Header(
         Div(
             Div(
-                H1(
-                    "collins",
-                    Span(".data", cls="text-red-500"),
-                    cls="text-2xl font-bold text-darkblue-800 dark:text-gray-200",
+                A(
+                    H1(
+                        "collins",
+                        Span(".data", cls="text-red-500"),
+                        cls="text-2xl font-bold text-darkblue-800 dark:text-gray-200",
+                    ),
+                    P(
+                        "data scientist & analyst",
+                        cls="text-sm text-darkblue-600 dark:text-gray-400",
+                    ),
+                    href="/"
                 ),
-                P("data scientist & analyst", cls="text-sm text-darkblue-600 dark:text-gray-400"),
             ),
             Nav(
-                P(
+                A(
                     "About",
-                    href="#",
+                    href="/about",
                     cls="text-darkblue-800 dark:text-gray-200 hover:text-red-400 transition-colors",
                 ),
                 P(
@@ -48,7 +54,7 @@ def TopBar():
                         cls="flex w-5 h-5 items-center",
                     ),
                     cls="p-2 hover:bg-black hover:bg-opacity-10 dark:hover:bg-white dark:hover:bg-opacity-10 rounded-lg transition-colors",
-                    onclick="document.documentElement.classList.toggle('dark')",
+                    onclick="toggleDarkMode()",
                 ),
                 cls="flex justify-end p-4",
             ),

@@ -14,16 +14,23 @@ function updateDarkMode(isDark) {
 }
 
 // Function to toggle dark mode
-window.toggleDarkMode = function() {
+function toggleDarkMode() {
     const newMode = !isDarkMode();
     updateDarkMode(newMode);
-    // You can use this to debug
-    console.log('Dark mode:', isDarkMode());
 }
 
 // Initialize dark mode based on saved preference or system preference
-if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    updateDarkMode(true);
-} else {
-    updateDarkMode(false);
-} 
+function initializeDarkMode() {
+    // Check if there's a saved preference
+    if (localStorage.theme === 'dark' || localStorage.theme === 'light') {
+        updateDarkMode(localStorage.theme === 'dark');
+    } else {
+        // If no saved preference, use system preference
+        updateDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', initializeDarkMode);
+
+// Update the TopBar button onclick handler 

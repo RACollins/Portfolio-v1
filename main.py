@@ -3,6 +3,7 @@ import subprocess
 
 from fasthtml.common import *
 from pages.landing import LandingPage
+from pages.about import AboutPage
 
 ### Bring in command line arguments
 parser = argparse.ArgumentParser(
@@ -49,5 +50,8 @@ async def get(fname: str, ext: str):
 def get():
     return LandingPage()
 
+@rt("/about")
+def get():
+    return AboutPage()
 
 serve()
