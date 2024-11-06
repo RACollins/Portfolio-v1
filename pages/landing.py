@@ -2,6 +2,37 @@ from fasthtml.common import *
 from components import ProjectCard, TopBar
 from lucide_fasthtml import Lucide
 
+import os
+import yaml
+import datetime
+
+
+def get_thoughts():
+    thoughts = []
+    thoughts_dir = "thoughts"
+
+    for filename in os.listdir(thoughts_dir):
+        if filename.endswith(".md"):
+            with open(os.path.join(thoughts_dir, filename), "r") as file:
+                content = file.read()
+                header_info, thought_body = content.split("---")[1:]
+
+                ### Populate thought with metadata
+                thought = yaml.safe_load(header_info)
+                thought["slug"] = os.path.splitext(filename)[0]
+                thought["body"] = thought_body.strip()
+
+                ### Convert date string to datetime object if it exists
+                if "date" in thought and isinstance(thought["date"], str):
+                    thought["date"] = datetime.datetime.strptime(thought["date"], "%Y-%m-%d")
+
+                if not thought["draft"]:
+                    thoughts.append(thought)
+
+    # Sort thoughts by date, most recent first
+    thoughts.sort(key=lambda x: x.get("date", datetime.datetime.min), reverse=True)
+    return thoughts
+
 
 def SubHeader():
     return Section(
@@ -40,7 +71,10 @@ def SubHeader():
 
 def FeaturedProjects():
     return Section(
-        H2("Featured Projects", cls="text-xl font-semibold mb-6 text-darkblue-800 dark:text-gray-200"),
+        H2(
+            "Featured Projects",
+            cls="text-xl font-semibold mb-6 text-darkblue-800 dark:text-gray-200",
+        ),
         Div(
             Div(
                 ProjectCard(
@@ -78,6 +112,32 @@ def FeaturedProjects():
     )
 
 
+def RecentThoughts():
+    thoughts = get_thoughts()
+    return Section(
+        H2(
+            "Recent Thoughts",
+            cls="text-xl font-semibold mb-6 text-darkblue-800 dark:text-gray-200",
+        ),
+        Ul(
+            *[
+                Li(
+                    A(
+                        Div(
+                            Span(thought["title"], cls="flex-grow"),
+                            Span(thought["date"].strftime("%Y-%m-%d"), cls="text-gray-400 dark:text-gray-500"),
+                            cls="flex justify-between items-center w-full",
+                        ),
+                        href=f"/thoughts/{thought['slug']}",
+                    ),
+                    cls="text-darkblue-800 hover:text-red-400 dark:text-gray-200 dark:hover:text-red-400",
+                )
+                for thought in thoughts
+            ],
+        ),
+    )
+
+
 def LandingPage():
     return Div(
         TopBar(),
@@ -85,6 +145,7 @@ def LandingPage():
             Div(
                 SubHeader(),
                 FeaturedProjects(),
+                RecentThoughts(),
                 cls="max-w-3xl mx-auto px-4",
             ),
             cls="py-8",
