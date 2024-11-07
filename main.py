@@ -1,9 +1,12 @@
 import argparse
 import subprocess
+import yaml
+import datetime
 
 from fasthtml.common import *
 from pages.landing import LandingPage
 from pages.about import AboutPage
+from pages.thought import ThoughtPage
 
 ### Bring in command line arguments
 parser = argparse.ArgumentParser(
@@ -24,7 +27,7 @@ if args.reload_tailwind:
 
 ### Set head elements
 # cnd_tailwind = Script(src="https://cdn.tailwindcss.com")
-local_tailwind = Link(rel="stylesheet", href="css/output.css", type="text/css")
+local_tailwind = Link(rel="stylesheet", href="/css/output.css", type="text/css")
 favicon = Link(rel="icon", href="/assets/favicon.ico", type="image/x-icon")
 dark_mode_js = Script(src="/static/js/darkMode.js")
 
@@ -53,5 +56,9 @@ def get():
 @rt("/about")
 def get():
     return AboutPage()
+
+@rt("/thoughts/{slug}")
+def get(slug: str):
+    return ThoughtPage(slug)
 
 serve()

@@ -17,7 +17,7 @@ def TopBar():
                         "data scientist & analyst",
                         cls="text-sm text-darkblue-600 dark:text-gray-400",
                     ),
-                    href="/"
+                    href="/",
                 ),
             ),
             Nav(
