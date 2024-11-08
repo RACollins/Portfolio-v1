@@ -4,10 +4,17 @@ import yaml
 import datetime
 from markdown import markdown
 
-# Ensure the extensions are correctly specified
-md_exts = ["codehilite", "smarty", "extra", "sane_lists"]
+# Ensure the extensions are correctly specified and add proper styling
+md_exts = ["fenced_code", "codehilite", "tables", "nl2br", "sane_lists"]
+
 
 def Markdown(s, exts=md_exts, **kw):
+    # Add default styling classes for markdown content
+    default_cls = "prose prose-lg max-w-none prose-darkblue-800 dark:prose-invert"
+    if "cls" in kw:
+        kw["cls"] = f"{default_cls} {kw['cls']}"
+    else:
+        kw["cls"] = default_cls
     return Div(NotStr(markdown(s, extensions=exts)), **kw)
 
 
@@ -37,7 +44,7 @@ def ThoughtPage(slug: str):
             ),
             Markdown(
                 thought["body"],
-                cls="max-w-3xl mx-auto px-4 mb-4 text-darkblue-800 dark:text-gray-200",
+                cls="max-w-3xl mx-auto px-4 mb-4",
             ),
             cls="py-8",
         ),
