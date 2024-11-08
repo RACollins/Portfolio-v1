@@ -5,12 +5,12 @@ import datetime
 from markdown import markdown
 
 # Ensure the extensions are correctly specified and add proper styling
-md_exts = ["fenced_code", "codehilite", "tables", "nl2br", "sane_lists"]
+md_exts = ["extra", "codehilite", "nl2br", "smarty", "sane_lists"]
 
 
 def Markdown(s, exts=md_exts, **kw):
-    # Add default styling classes for markdown content
-    default_cls = "prose prose-lg max-w-none prose-darkblue-800 dark:prose-invert"
+    # Remove max-w-none from default classes
+    default_cls = "prose prose-lg prose-darkblue-800 dark:prose-invert"
     if "cls" in kw:
         kw["cls"] = f"{default_cls} {kw['cls']}"
     else:
@@ -36,7 +36,7 @@ def ThoughtPage(slug: str):
         Main(
             H2(
                 thought["title"],
-                cls="max-w-3xl mx-auto px-4 mb-4 text-3xl font-bold text-darkblue-800 dark:text-sgray-200",
+                cls="max-w-3xl mx-auto px-4 mb-4 text-3xl font-bold text-darkblue-800 dark:text-gray-200",
             ),
             H3(
                 thought["date"].strftime("%Y-%m-%d"),
