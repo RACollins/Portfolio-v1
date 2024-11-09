@@ -28,9 +28,8 @@ if args.reload_tailwind:
     )
 
 ### Set head elements
-# cnd_tailwind = Script(src="https://cdn.tailwindcss.com")
 local_tailwind = Link(rel="stylesheet", href="/css/output.css", type="text/css")
-#local_hl_styles = Link(rel="stylesheet", href="/css/hl-styles.css", type="text/css")
+local_hl_styles = Link(rel="stylesheet", href="/css/hl-styles.css", type="text/css")
 favicon = Link(rel="icon", href="/assets/favicon.ico", type="image/x-icon")
 dark_mode_js = Script(src="/static/js/darkMode.js")
 
@@ -39,17 +38,14 @@ app, rt = fast_app(
     live=True,
     pico=False,
     hdrs=[
-        # cnd_tailwind,
         local_tailwind,
-        # local_hl_styles,
+        local_hl_styles,
         favicon,
         dark_mode_js,
-        MarkdownJS(),
-        HighlightJS(
-            langs=["python", "bash", "yaml", "json"],
-            light="github-light",
-            dark="github-dark",
-        ),
+        # HighlightJS(
+        #     langs=["python", "bash", "yaml", "json"],
+        #     dark="github-dark",
+        # ),
     ],
 )
 
