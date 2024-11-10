@@ -1,7 +1,5 @@
 import argparse
 import subprocess
-import yaml
-import datetime
 
 from fasthtml.common import *
 from pages.landing import LandingPage
@@ -42,6 +40,7 @@ app, rt = fast_app(
         local_hl_styles,
         favicon,
         dark_mode_js,
+        MarkdownJS(),
         # HighlightJS(
         #     langs=["python", "bash", "yaml", "json"],
         #     dark="github-dark",
