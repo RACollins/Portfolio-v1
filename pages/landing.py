@@ -49,7 +49,7 @@ def SubHeader():
                 Div(
                     Lucide(icon="file-text"),
                     Span("CV"),
-                    cls="flex items-center gap-2 text-slate hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
+                    cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
                 ),
                 Div(
                     Lucide(icon="github"),

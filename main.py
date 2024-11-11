@@ -30,6 +30,7 @@ local_tailwind = Link(rel="stylesheet", href="/css/output.css", type="text/css")
 local_hl_styles = Link(rel="stylesheet", href="/css/hl-styles.css", type="text/css")
 favicon = Link(rel="icon", href="/assets/favicon.ico", type="image/x-icon")
 dark_mode_js = Script(src="/static/js/darkMode.js")
+copy_code_js = Script(src="/static/js/copy-code.js")
 
 ### Set up FastHTML app
 app, rt = fast_app(
@@ -40,11 +41,7 @@ app, rt = fast_app(
         local_hl_styles,
         favicon,
         dark_mode_js,
-        MarkdownJS(),
-        # HighlightJS(
-        #     langs=["python", "bash", "yaml", "json"],
-        #     dark="github-dark",
-        # ),
+        copy_code_js,
     ],
 )
 
