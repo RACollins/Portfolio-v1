@@ -24,7 +24,9 @@ def get_thoughts():
 
                 ### Convert date string to datetime object if it exists
                 if "date" in thought and isinstance(thought["date"], str):
-                    thought["date"] = datetime.datetime.strptime(thought["date"], "%Y-%m-%d")
+                    thought["date"] = datetime.datetime.strptime(
+                        thought["date"], "%Y-%m-%d"
+                    )
 
                 if not thought["draft"]:
                     thoughts.append(thought)
@@ -125,7 +127,10 @@ def RecentThoughts():
                     A(
                         Div(
                             Span(thought["title"], cls="flex-grow"),
-                            Span(thought["date"].strftime("%Y-%m-%d"), cls="text-gray-400 dark:text-gray-500"),
+                            Span(
+                                thought["date"].strftime("%Y-%m-%d"),
+                                cls="text-gray-400 dark:text-gray-500",
+                            ),
                             cls="flex justify-between items-center w-full",
                         ),
                         href=f"/thoughts/{thought['slug']}",
