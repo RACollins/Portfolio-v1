@@ -1,5 +1,5 @@
 ---
-title: "New thought to test out my portfolio pebsite"
+title: "New thought to test out my portfolio website"
 date: 2024-11-11T00:00:00+00:00
 draft: false
 ---

@@ -59,12 +59,12 @@ def ThoughtPage(slug: str):
                 cls="max-w-3xl mx-auto px-4 mb-4 text-3xl font-bold text-darkblue-800 dark:text-gray-200",
             ),
             H3(
-                thought["date"].strftime("%Y-%m-%d"),
+                thought["date"].strftime("%w %b %Y"),
                 cls="max-w-3xl mx-auto px-4 mb-4 text-lg text-darkblue-600 dark:text-gray-400",
             ),
             Markdown(
                 thought["body"],
-                cls="max-w-3xl mx-auto px-4 mb-4",
+                cls="max-w-3xl mx-auto px-4 mb-4 text-darkblue-800 dark:text-gray-200",
             ),
             cls="py-8",
         ),
