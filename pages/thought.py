@@ -9,7 +9,7 @@ md_exts = ["extra", "codehilite", "nl2br", "smarty", "sane_lists"]
 
 
 def Markdown(s, exts=md_exts, **kw):
-    default_cls = "prose prose-lg prose-darkblue-800 dark:prose-invert"
+    default_cls = "prose prose-lg prose-headings:text-darkblue-800 dark:prose-headings:text-gray-200 prose-darkblue-800 dark:prose-invert"
     if "cls" in kw:
         kw["cls"] = f"{default_cls} {kw['cls']}"
     else:
@@ -58,9 +58,14 @@ def ThoughtPage(slug: str):
                 thought["title"],
                 cls="max-w-3xl mx-auto px-4 mb-4 text-3xl font-bold text-darkblue-800 dark:text-gray-200",
             ),
-            H3(
-                thought["date"].strftime("%w %b %Y"),
-                cls="max-w-3xl mx-auto px-4 mb-4 text-lg text-darkblue-600 dark:text-gray-400",
+            Div(
+                Div(
+                    "Author: Richard Collins",
+                ),
+                Div(
+                    "Published: {}".format(thought["date"].strftime("%d %b %Y")),
+                ),
+                cls="max-w-3xl mx-auto px-4 mb-4 italic text-sm text-darkblue-600 dark:text-gray-400",
             ),
             Markdown(
                 thought["body"],
@@ -68,5 +73,5 @@ def ThoughtPage(slug: str):
             ),
             cls="py-8",
         ),
-        cls="min-h-screen bg-[radial-gradient(ellipse_at_top_left,_#fff0d1_0%,_#ffffff_60%,_#cce6ff_100%)] dark:bg-[radial-gradient(ellipse_at_top_left,_#003196_0%,_#000000_60%,_#6a3400_100%)] animate-gradientX-top-left",
+        cls="min-h-screen bg-[radial-gradient(ellipse_at_top_left,_#fff0d1_0%,_#ffffff_60%,_#cce6ff_100%)] dark:bg-[radial-gradient(ellipse_at_top_left,_#003196_0%,_#000000_60%,_#6a3400_100%)]",
     )

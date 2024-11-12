@@ -128,7 +128,7 @@ def RecentThoughts():
                         Div(
                             Span(thought["title"], cls="flex-grow"),
                             Span(
-                                thought["date"].strftime("%Y-%m-%d"),
+                                thought["date"].strftime("%d %b %Y"),
                                 cls="text-gray-400 dark:text-gray-500",
                             ),
                             cls="flex justify-between items-center w-full",
