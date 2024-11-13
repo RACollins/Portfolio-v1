@@ -26,14 +26,14 @@ def TopBar():
                     href="/about",
                     cls="text-darkblue-800 dark:text-gray-200 hover:text-red-400 transition-colors",
                 ),
-                P(
+                A(
                     "Projects",
-                    href="#",
+                    href="/projects",
                     cls="text-darkblue-800 dark:text-gray-200 hover:text-red-400 transition-colors",
                 ),
-                P(
+                A(
                     "Thoughts",
-                    href="#",
+                    href="/thoughts",
                     cls="text-darkblue-800 dark:text-gray-200 hover:text-red-400 transition-colors",
                 ),
                 cls="flex space-x-4",

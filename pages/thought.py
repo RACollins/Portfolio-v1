@@ -23,8 +23,8 @@ def Markdown(s, exts=md_exts, **kw):
         '<div class="codehilite">',
         """<div class="codehilite relative group">
             <button onclick="copyCode(this)"
-                    class="absolute top-2 right-2 p-1.5 rounded bg-darkblue-600 text-white 
-                           opacity-0 group-hover:opacity-100 hover:bg-darkblue-500 transition-all duration-200">
+                    class="absolute top-2 right-2 p-1.5 rounded bg-darkblue-800 text-white 
+                           opacity-0 group-hover:opacity-100 hover:bg-darkblue-400 transition-all duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>

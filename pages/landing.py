@@ -48,22 +48,25 @@ def SubHeader():
                 cls="text-darkblue-800 dark:text-gray-300 mb-6",
             ),
             Div(
-                Div(
+                A(
                     Lucide(icon="file-text"),
                     Span("CV"),
                     cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
+                    href="/cv.pdf",
                 ),
-                Div(
+                A(
                     Lucide(icon="github"),
                     Span("GitHub"),
                     cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
+                    href="https://github.com/RACollins",
                 ),
-                Div(
+                A(
                     Lucide(icon="linkedin"),
                     Span("LinkedIn"),
                     cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
+                    href="https://www.linkedin.com/in/richard-collins-data-science/",
                 ),
-                cls="flex flex-wrap gap-4 mb-6",
+                cls="flex flex-wrap gap-6 mb-6",
             ),
             cls="relative",
         ),

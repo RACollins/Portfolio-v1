@@ -5,7 +5,7 @@ from fasthtml.common import *
 from pages.landing import LandingPage
 from pages.about import AboutPage
 from pages.thought import ThoughtPage
-
+from pages.not_found import NotFoundPage
 ### Bring in command line arguments
 parser = argparse.ArgumentParser(
     prog="FastHTML + Tailwind Portfolio",
@@ -32,8 +32,14 @@ favicon = Link(rel="icon", href="/assets/favicon.ico", type="image/x-icon")
 dark_mode_js = Script(src="/static/js/dark-mode.js")
 copy_code_js = Script(src="/static/js/copy-code.js")
 
+# Define exception handlers for 404 errors
+exception_handlers = {
+    404: lambda req, exc: NotFoundPage()
+}
+
 ### Set up FastHTML app
 app, rt = fast_app(
+    exception_handlers=exception_handlers,
     live=True,
     pico=False,
     hdrs=[
@@ -66,5 +72,16 @@ def get():
 def get(slug: str):
     return ThoughtPage(slug)
 
+@rt("/cv.pdf")
+def get():
+    try:
+        return FileResponse("static/cv.pdf")
+    except:
+        return NotFoundPage()
+
+# This should be the last route - it catches all unmatched paths
+@rt("/{path:path}")
+def get(path: str):
+    return NotFoundPage()
 
 serve()
