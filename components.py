@@ -93,6 +93,8 @@ class ProjectCard:
                     cls="flex items-center mb-2",
                 ),
                 P(self.description, cls="text-sm text-gray-600 dark:text-gray-400"),
+                target="_blank",
+                rel="noopener noreferrer",
                 href=self.endpoint,  # Use the endpoint for the link
                 cls="block",
             ),

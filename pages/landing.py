@@ -83,16 +83,16 @@ def FeaturedProjects():
         Div(
             Div(
                 ProjectCard(
-                    Lucide(icon="audio-waveform"),
-                    "Project 1",
-                    "This is a description of Project 1",
-                    "/projects/1",
+                    Lucide(icon="monitor-play"),
+                    "Manimflow",
+                    "Prompt-to-animation prototype using the Manim Python library and OpenAI.",
+                    "https://manimflow-api.vercel.app/",
                 ),
                 ProjectCard(
-                    Lucide(icon="chart-column-increasing"),
-                    "Project 2",
-                    "This is a description of Project 2",
-                    "/projects/2",
+                    Lucide(icon="hand-coins"),
+                    "Global Economics Dashboard",
+                    "A Streamlit dashboard to visualise global economics data, with a focus on how government spending has affected GDP for the last 150 years.",
+                    "https://global-economics-dashboard.streamlit.app/",
                 ),
                 cls="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-darkblue-800 dark:text-gray-200",
             ),

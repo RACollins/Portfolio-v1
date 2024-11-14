@@ -6,6 +6,7 @@ from pages.landing import LandingPage
 from pages.about import AboutPage
 from pages.thought import ThoughtPage
 from pages.not_found import NotFoundPage
+
 ### Bring in command line arguments
 parser = argparse.ArgumentParser(
     prog="FastHTML + Tailwind Portfolio",
@@ -33,9 +34,7 @@ dark_mode_js = Script(src="/static/js/dark-mode.js")
 copy_code_js = Script(src="/static/js/copy-code.js")
 
 # Define exception handlers for 404 errors
-exception_handlers = {
-    404: lambda req, exc: NotFoundPage()
-}
+exception_handlers = {404: lambda req, exc: NotFoundPage()}
 
 ### Set up FastHTML app
 app, rt = fast_app(
@@ -50,11 +49,6 @@ app, rt = fast_app(
         copy_code_js,
     ],
 )
-
-### Serve static files for dark mode toggle, but seems like I don't need it?
-""" @rt("/{fname:path}.{ext:static}")
-async def get(fname: str, ext: str):
-    return FileResponse(f'static/{fname}.{ext}') """
 
 
 ### Set up routes
@@ -72,6 +66,7 @@ def get():
 def get(slug: str):
     return ThoughtPage(slug)
 
+
 @rt("/cv.pdf")
 def get():
     try:
@@ -79,9 +74,11 @@ def get():
     except:
         return NotFoundPage()
 
+
 # This should be the last route - it catches all unmatched paths
 @rt("/{path:path}")
 def get(path: str):
     return NotFoundPage()
+
 
 serve()
