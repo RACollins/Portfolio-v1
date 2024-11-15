@@ -2,6 +2,39 @@ from fasthtml.common import *
 from components import ProjectCard, TopBar
 from lucide_fasthtml import Lucide
 
+import os
+import yaml
+import datetime
+
+
+def get_thoughts():
+    thoughts = []
+    thoughts_dir = "thoughts"
+
+    for filename in os.listdir(thoughts_dir):
+        if filename.endswith(".md"):
+            with open(os.path.join(thoughts_dir, filename), "r") as file:
+                content = file.read()
+                header_info, thought_body = content.split("---")[1:]
+
+                ### Populate thought with metadata
+                thought = yaml.safe_load(header_info)
+                thought["slug"] = os.path.splitext(filename)[0]
+                thought["body"] = thought_body.strip()
+
+                ### Convert date string to datetime object if it exists
+                if "date" in thought and isinstance(thought["date"], str):
+                    thought["date"] = datetime.datetime.strptime(
+                        thought["date"], "%Y-%m-%d"
+                    )
+
+                if not thought["draft"]:
+                    thoughts.append(thought)
+
+    # Sort thoughts by date, most recent first
+    thoughts.sort(key=lambda x: x.get("date", datetime.datetime.min), reverse=True)
+    return thoughts
+
 
 def SubHeader():
     return Section(
@@ -15,22 +48,25 @@ def SubHeader():
                 cls="text-darkblue-800 dark:text-gray-300 mb-6",
             ),
             Div(
-                Div(
+                A(
                     Lucide(icon="file-text"),
                     Span("CV"),
-                    cls="flex items-center gap-2 text-slate hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
+                    cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
+                    href="/cv.pdf",
                 ),
-                Div(
+                A(
                     Lucide(icon="github"),
                     Span("GitHub"),
                     cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
+                    href="https://github.com/RACollins",
                 ),
-                Div(
+                A(
                     Lucide(icon="linkedin"),
                     Span("LinkedIn"),
                     cls="flex items-center gap-2 text-darkblue-800 hover:text-red-400 dark:text-gray-300 dark:hover:text-red-400 transition-colors",
+                    href="https://www.linkedin.com/in/richard-collins-data-science/",
                 ),
-                cls="flex flex-wrap gap-4 mb-6",
+                cls="flex flex-wrap gap-6 mb-6",
             ),
             cls="relative",
         ),
@@ -40,20 +76,23 @@ def SubHeader():
 
 def FeaturedProjects():
     return Section(
-        H2("Featured Projects", cls="text-xl font-semibold mb-6 text-darkblue-800 dark:text-gray-200"),
+        H2(
+            "Featured Projects",
+            cls="text-xl font-semibold mb-6 text-darkblue-800 dark:text-gray-200",
+        ),
         Div(
             Div(
                 ProjectCard(
-                    Lucide(icon="audio-waveform"),
-                    "Project 1",
-                    "This is a description of Project 1",
-                    "/projects/1",
+                    Lucide(icon="monitor-play"),
+                    "Manimflow",
+                    "Prompt-to-animation prototype using the Manim Python library and OpenAI.",
+                    "https://manimflow-api.vercel.app/",
                 ),
                 ProjectCard(
-                    Lucide(icon="chart-column-increasing"),
-                    "Project 2",
-                    "This is a description of Project 2",
-                    "/projects/2",
+                    Lucide(icon="hand-coins"),
+                    "Global Economics Dashboard",
+                    "A Streamlit dashboard to visualise global economics data, with a focus on how government spending has affected GDP for the last 150 years.",
+                    "https://global-economics-dashboard.streamlit.app/",
                 ),
                 cls="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 text-darkblue-800 dark:text-gray-200",
             ),
@@ -78,6 +117,35 @@ def FeaturedProjects():
     )
 
 
+def RecentThoughts():
+    thoughts = get_thoughts()
+    return Section(
+        H2(
+            "Recent Thoughts",
+            cls="text-xl font-semibold mb-6 text-darkblue-800 dark:text-gray-200",
+        ),
+        Ul(
+            *[
+                Li(
+                    A(
+                        Div(
+                            Span(thought["title"], cls="flex-grow"),
+                            Span(
+                                thought["date"].strftime("%d %b %Y"),
+                                cls="text-gray-400 dark:text-gray-500",
+                            ),
+                            cls="flex justify-between items-center w-full",
+                        ),
+                        href=f"/thoughts/{thought['slug']}",
+                    ),
+                    cls="text-darkblue-800 hover:text-red-400 dark:text-gray-200 dark:hover:text-red-400",
+                )
+                for thought in thoughts
+            ],
+        ),
+    )
+
+
 def LandingPage():
     return Div(
         TopBar(),
@@ -85,6 +153,7 @@ def LandingPage():
             Div(
                 SubHeader(),
                 FeaturedProjects(),
+                RecentThoughts(),
                 cls="max-w-3xl mx-auto px-4",
             ),
             cls="py-8",

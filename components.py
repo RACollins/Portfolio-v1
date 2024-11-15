@@ -17,7 +17,7 @@ def TopBar():
                         "data scientist & analyst",
                         cls="text-sm text-darkblue-600 dark:text-gray-400",
                     ),
-                    href="/"
+                    href="/",
                 ),
             ),
             Nav(
@@ -26,14 +26,14 @@ def TopBar():
                     href="/about",
                     cls="text-darkblue-800 dark:text-gray-200 hover:text-red-400 transition-colors",
                 ),
-                P(
+                A(
                     "Projects",
-                    href="#",
+                    href="/projects",
                     cls="text-darkblue-800 dark:text-gray-200 hover:text-red-400 transition-colors",
                 ),
-                P(
+                A(
                     "Thoughts",
-                    href="#",
+                    href="/thoughts",
                     cls="text-darkblue-800 dark:text-gray-200 hover:text-red-400 transition-colors",
                 ),
                 cls="flex space-x-4",
@@ -93,6 +93,8 @@ class ProjectCard:
                     cls="flex items-center mb-2",
                 ),
                 P(self.description, cls="text-sm text-gray-600 dark:text-gray-400"),
+                target="_blank",
+                rel="noopener noreferrer",
                 href=self.endpoint,  # Use the endpoint for the link
                 cls="block",
             ),

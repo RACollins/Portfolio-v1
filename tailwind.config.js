@@ -18,7 +18,7 @@ module.exports = {
         },
       },
       animation: {
-        "gradientX-top-left": "gradientX-top-left 15s ease infinite",
+        "gradientX-top-left": "gradientX-top-left 17s ease infinite",
       },
       keyframes: {
         "gradientX-top-left": {
@@ -34,5 +34,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };
