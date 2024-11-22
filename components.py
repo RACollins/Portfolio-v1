@@ -71,6 +71,67 @@ def TopBar():
     )
 
 
+def ChatWidget():
+    return Div(
+        # Chat Icon Button
+        Button(
+            Lucide(icon="message-circle", cls="w-6 h-6"),
+            cls="fixed bottom-6 right-6 p-3 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg transition-colors z-50",
+            onclick="toggleChat()",
+        ),
+        # Chat Window
+        Div(
+            Div(
+                # Chat Header
+                Div(
+                    H3("Chat with me", cls="text-lg font-semibold text-darkblue-800 dark:text-gray-300"),
+                    Button(
+                        Lucide(icon="x", cls="w-4 h-4"),
+                        cls="text-darkblue-800 dark:text-gray-300 hover:text-red-500",
+                        onclick="toggleChat()",
+                    ),
+                    cls="flex justify-between items-center p-4 border-b",
+                ),
+                # Chat Messages Container
+                Div(
+                    cls="flex-1 p-4 space-y-4 overflow-y-auto",
+                    id="chat-messages",
+                    style="height: 300px; scroll-behavior: smooth;",
+                ),
+                # Chat Input
+                Form(
+                    Div(
+                        Input(
+                            type="text",
+                            placeholder="Type your message...",
+                            cls="flex-1 p-2 border rounded-l-lg focus:outline-none focus:border-red-500 dark:bg-slate-800 dark:text-gray-300 dark:border-gray-700",
+                            id="chat-input",
+                            name="chat-input",
+                            required=True,
+                            # autocomplete="off",  # Prevent browser autocomplete
+                        ),
+                        Button(
+                            "Send",
+                            type="submit",
+                            cls="px-4 py-2 bg-red-500 text-white rounded-r-lg hover:bg-red-600 transition-colors",
+                        ),
+                        cls="flex",
+                    ),
+                    cls="p-4 border-t dark:border-gray-700",
+                    hx_post="/api/chat",
+                    hx_target="#chat-messages",
+                    hx_swap="beforeend",
+                    _="on submit set #chat-input.value to '' then wait 10ms then call #chat-messages.scrollIntoView(false)",
+                ),
+                cls="flex flex-col bg-white dark:bg-slate-900 rounded-lg shadow-xl",
+                style="width: 350px; height: 450px;",
+            ),
+            cls="fixed bottom-24 right-6 hidden",
+            id="chat-window",
+        ),
+    )
+
+
 @dataclass
 class ProjectCard:
     icon: str
