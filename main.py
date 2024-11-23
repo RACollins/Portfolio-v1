@@ -32,11 +32,9 @@ if args.reload_tailwind:
 load_dotenv()
 
 ### Initialize chat service
-chat_service = ChatService(ChatConfig(
-    model="gpt-3.5-turbo",
-    temperature=0.7,
-    max_tokens=500
-))
+chat_service = ChatService(
+    ChatConfig(model="gpt-3.5-turbo", temperature=0.7, max_tokens=500)
+)
 
 ### Set head elements
 local_tailwind = Link(rel="stylesheet", href="/css/output.css", type="text/css")
@@ -64,34 +62,36 @@ app, rt = fast_app(
     ],
 )
 
+
 ### Add chat route
 @rt("/api/chat", methods=["POST"])
 async def post(req):
     form_data = await req.form()
     user_message = form_data.get("chat-input", "")
-    
+
     # Get response from chat service
     bot_response = await chat_service.get_response(user_message)
-    
+
     # Return both user message and bot response
     return Div(
         # User message
         Div(
             P(
-                user_message, 
-                cls="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg inline-block text-darkblue-800 dark:text-gray-300"
+                user_message,
+                cls="bg-blue-100 dark:bg-blue-900 p-3 ml-4 rounded-lg inline-block text-darkblue-800 dark:text-gray-300",
             ),
-            cls="flex justify-end mb-4"
+            cls="flex justify-end mb-4",
         ),
         # Bot response
         Div(
             P(
-                bot_response, 
-                cls="bg-orange-100 dark:bg-amber-900 p-3 rounded-lg inline-block text-darkblue-800 dark:text-gray-300"
+                bot_response,
+                cls="bg-orange-100 dark:bg-amber-900 p-3 mr-4 rounded-lg inline-block text-darkblue-800 dark:text-gray-300",
             ),
-            cls="flex justify-start"
-        )
+            cls="flex justify-start",
+        ),
     )
+
 
 ### Set up routes
 @rt("/")
@@ -124,3 +124,10 @@ def get(path: str):
 
 
 serve()
+
+""" For the next steps toward RAG functionality, we can:
+
+Create a document loader for your CV and blog posts
+Implement document chunking and embedding
+Add vector storage (e.g., FAISS or Chroma)
+Modify the chat service to use retrieved context """

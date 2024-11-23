@@ -84,7 +84,10 @@ def ChatWidget():
             Div(
                 # Chat Header
                 Div(
-                    H3("Chat with me", cls="text-lg font-semibold text-darkblue-800 dark:text-gray-300"),
+                    H3(
+                        "Chat with me",
+                        cls="text-lg font-semibold text-darkblue-800 dark:text-gray-300",
+                    ),
                     Button(
                         Lucide(icon="x", cls="w-4 h-4"),
                         cls="text-darkblue-800 dark:text-gray-300 hover:text-red-500",
@@ -108,7 +111,6 @@ def ChatWidget():
                             id="chat-input",
                             name="chat-input",
                             required=True,
-                            # autocomplete="off",  # Prevent browser autocomplete
                         ),
                         Button(
                             "Send",
@@ -120,8 +122,9 @@ def ChatWidget():
                     cls="p-4 border-t dark:border-gray-700",
                     hx_post="/api/chat",
                     hx_target="#chat-messages",
-                    hx_swap="beforeend",
-                    _="on submit set #chat-input.value to '' then wait 10ms then call #chat-messages.scrollIntoView(false)",
+                    hx_swap="beforeend scroll:bottom",
+                    id="chat-form",
+                    onsubmit="setTimeout(() => this.reset(), 0); return false;",  # <- hack to clear form on submission
                 ),
                 cls="flex flex-col bg-white dark:bg-slate-900 rounded-lg shadow-xl",
                 style="width: 350px; height: 450px;",
