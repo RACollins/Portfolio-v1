@@ -1,4 +1,4 @@
-from typing import Optional, List, Dict
+from typing import Optional
 import os
 from dataclasses import dataclass
 from collections import deque
@@ -18,7 +18,7 @@ class ChatService:
         self.config = config or ChatConfig()
         self.client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         self.message_history = deque(maxlen=self.config.max_history)
-        
+
         # Default system message - we'll replace this with RAG context later
         self.system_message = """You are a friendly and professional AI assistant for Richard Collins' portfolio website. 
         Your role is to help visitors learn more about Richard's work, experience, and skills.
@@ -38,27 +38,31 @@ class ChatService:
             try:
                 # Add user message to history
                 self.message_history.append({"role": "user", "content": user_message})
-                
+
                 # Construct messages with system message and history
                 messages = [{"role": "system", "content": self.system_message}]
                 messages.extend(list(self.message_history))
-                
+
                 # Get response from API
                 response = await self.client.chat.completions.create(
                     model=self.config.model,
                     messages=messages,
                     temperature=self.config.temperature,
-                    max_tokens=self.config.max_tokens
+                    max_tokens=self.config.max_tokens,
                 )
-                
+
                 # Add assistant's response to history
                 assistant_message = response.choices[0].message.content
-                self.message_history.append({"role": "assistant", "content": assistant_message})
-                
+                self.message_history.append(
+                    {"role": "assistant", "content": assistant_message}
+                )
+
                 return assistant_message
-                
+
             except Exception as e:
                 print(f"Error in chat service: {e}")
                 error_message = "I apologize, but I'm having trouble processing your request right now. Please try again later."
-                self.message_history.append({"role": "assistant", "content": error_message})
+                self.message_history.append(
+                    {"role": "assistant", "content": error_message}
+                )
                 return error_message
