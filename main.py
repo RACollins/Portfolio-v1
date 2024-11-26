@@ -124,10 +124,3 @@ def get(path: str):
 
 
 serve()
-
-""" For the next steps toward RAG functionality, we can:
-
-Create a document loader for your CV and blog posts
-Implement document chunking and embedding
-Add vector storage (e.g., FAISS or Chroma)
-Modify the chat service to use retrieved context """
