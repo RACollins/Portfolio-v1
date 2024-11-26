@@ -1,5 +1,5 @@
 from fasthtml.common import *
-from components import ProjectCard, TopBar
+from components import ProjectCard, TopBar, ChatWidget
 from lucide_fasthtml import Lucide
 
 import os
@@ -158,5 +158,6 @@ def LandingPage():
             ),
             cls="py-8",
         ),
+        ChatWidget(),
         cls="min-h-screen bg-[radial-gradient(ellipse_at_top_left,_#fff0d1_0%,_#ffffff_60%,_#cce6ff_100%)] dark:bg-[radial-gradient(ellipse_at_top_left,_#003196_0%,_#000000_60%,_#6a3400_100%)] animate-gradientX-top-left",
     )
