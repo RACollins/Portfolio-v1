@@ -1,11 +1,13 @@
 import argparse
 import subprocess
-
 from fasthtml.common import *
 from pages.landing import LandingPage
 from pages.about import AboutPage
 from pages.thought import ThoughtPage
 from pages.not_found import NotFoundPage
+from components import ChatWidget
+from services.chat_service import ChatService, ChatConfig
+from dotenv import load_dotenv
 
 ### Bring in command line arguments
 parser = argparse.ArgumentParser(
@@ -26,12 +28,21 @@ if args.reload_tailwind:
         ["tailwindcss", "-i", "css/input.css", "-o", "css/output.css", "--minify"]
     )
 
+### Load environment variables
+load_dotenv()
+
+### Initialize chat service
+chat_service = ChatService(
+    ChatConfig(model="gpt-3.5-turbo", temperature=0.7, max_tokens=500)
+)
+
 ### Set head elements
 local_tailwind = Link(rel="stylesheet", href="/css/output.css", type="text/css")
 local_hl_styles = Link(rel="stylesheet", href="/css/hl-styles.css", type="text/css")
 favicon = Link(rel="icon", href="/assets/favicon.ico", type="image/x-icon")
 dark_mode_js = Script(src="/static/js/dark-mode.js")
 copy_code_js = Script(src="/static/js/copy-code.js")
+chat_js = Script(src="/static/js/chat.js")
 
 # Define exception handlers for 404 errors
 exception_handlers = {404: lambda req, exc: NotFoundPage()}
@@ -47,8 +58,39 @@ app, rt = fast_app(
         favicon,
         dark_mode_js,
         copy_code_js,
+        chat_js,
     ],
 )
+
+
+### Add chat route
+@rt("/api/chat", methods=["POST"])
+async def post(req):
+    form_data = await req.form()
+    user_message = form_data.get("chat-input", "")
+
+    # Get response from chat service
+    bot_response = await chat_service.get_response(user_message)
+
+    # Return both user message and bot response
+    return Div(
+        # User message
+        Div(
+            P(
+                user_message,
+                cls="bg-blue-100 dark:bg-blue-900 p-3 ml-4 rounded-lg inline-block text-darkblue-800 dark:text-gray-300",
+            ),
+            cls="flex justify-end mb-4",
+        ),
+        # Bot response
+        Div(
+            P(
+                bot_response,
+                cls="bg-orange-100 dark:bg-amber-900 p-3 mr-4 rounded-lg inline-block text-darkblue-800 dark:text-gray-300",
+            ),
+            cls="flex justify-start",
+        ),
+    )
 
 
 ### Set up routes
