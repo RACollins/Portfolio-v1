@@ -33,7 +33,7 @@ load_dotenv()
 
 ### Initialize chat service
 chat_service = ChatService(
-    ChatConfig(model="gpt-3.5-turbo", temperature=0.7, max_tokens=500)
+    ChatConfig(model="gpt-4o-mini", temperature=0.7, max_tokens=500)
 )
 
 ### Set head elements
