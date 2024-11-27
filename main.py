@@ -6,7 +6,7 @@ from pages.about import AboutPage
 from pages.thought import ThoughtPage
 from pages.not_found import NotFoundPage
 from components import ChatWidget
-from services.chat_service import ChatService, ChatConfig
+from services.chat import ChatService, ChatConfig
 from dotenv import load_dotenv
 
 ### Bring in command line arguments

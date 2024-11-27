@@ -41,14 +41,13 @@ class ChatService:
     async def get_response(self, user_message: str) -> str:
         if user_message == "testing, testing, 1, 2, 3...":
             return "This is just a canned response for testing purposes, to check whether the chat bubbles are formatted correctly or not. Cheers!"
-
         try:
             # Add user message to history
             self.message_history.append(ell.user(user_message))
 
             # Trim history if needed
             if (
-                len(self.message_history) > self.config.max_history * 2 # <- *2 because each exchange has user+assistant
+                len(self.message_history) > self.config.max_history * 2 # <- user + assistant
             ):
                 self.message_history = self.message_history[
                     -self.config.max_history * 2 :
