@@ -1,6 +1,12 @@
+beautifulsoup4==4.12.3
 lucide_fasthtml==0.0.9
 Markdown==3.7
 python-dotenv==1.0.1
 python_fasthtml==0.6.14
+python_frontmatter==1.1.0
 PyYAML==6.0.2
 ell-ai==0.0.15
+sentence-transformers==2.4.0
+nltk
+numpy
+faiss-cpu==1.7.4

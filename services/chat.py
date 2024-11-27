@@ -3,6 +3,8 @@ import os
 from dataclasses import dataclass
 import ell
 from ell import Message
+from services.rag import RagService, RagConfig
+from pathlib import Path
 
 
 @dataclass
@@ -18,25 +20,54 @@ class ChatService:
         self.config = config or ChatConfig()
         self.message_history: List[Message] = []
 
-        # Default system message - we'll replace this with RAG context later
-        self.system_message = """You are a friendly and professional AI assistant for Richard Collins' portfolio website. 
+        # Initialize and prepare RAG service
+        self.rag_service = RagService()
+
+        # Check if vector store already exists
+        index_path = (
+            Path(self.rag_service.config.vector_store_path)
+            / self.rag_service.config.index_file
+        )
+        if not index_path.exists():
+            try:
+                # Only parse docs if index doesn't exist
+                print("Initializing RAG system and creating vector store...")
+                self.rag_service.parse_docs()
+            except Exception as e:
+                print(f"Warning: Failed to initialize RAG system: {e}")
+        else:
+            print("Using existing vector store for RAG system")
+
+        # Base system message - will be augmented with RAG context
+        self.base_system_message = """You are a friendly and professional AI assistant for Richard Collins' portfolio website. 
         Your role is to help visitors learn more about Richard's work, experience, and skills.
         
         Keep responses concise and relevant. If you're not sure about something, be honest about it.
         
-        Some key points about Richard:
-        - Data scientist and analyst
-        - Expertise in machine learning, statistical analysis, and data visualization
-        - Helps organizations make data-driven decisions
-        - Created projects like Manimflow and Global Economics Dashboard"""
+        When referencing information from the provided context, try to be accurate and specific."""
+
+    def _get_context_aware_system_message(self, query: str) -> str:
+        """Get system message enhanced with relevant context."""
+        # Get relevant context from RAG service
+        context = self.rag_service.get_relevant_context(query)
+
+        if context:
+            return f"""{self.base_system_message}
+            Here is some relevant information about Richard:
+
+            {context}
+            
+            Use this information to help answer the query, but don't mention that you're using any special context."""
+
+        return self.base_system_message
 
     @ell.complex(
         model="gpt-4o-mini",  # Will be overridden by config
         temperature=0.7,      # |
         max_tokens=500,       # v
     )
-    def _get_chat_response(self, message_history: List[Message]) -> List[Message]:
-        return [ell.system(self.system_message)] + message_history
+    def _get_chat_response(self, message_history: List[Message], system_message: str) -> List[Message]:
+        return [ell.system(system_message)] + message_history
 
     async def get_response(self, user_message: str) -> str:
         if user_message == "testing, testing, 1, 2, 3...":
@@ -46,15 +77,14 @@ class ChatService:
             self.message_history.append(ell.user(user_message))
 
             # Trim history if needed
-            if (
-                len(self.message_history) > self.config.max_history * 2 # <- user + assistant
-            ):
-                self.message_history = self.message_history[
-                    -self.config.max_history * 2 :
-                ]
+            if len(self.message_history) > self.config.max_history * 2:  # <- user + assistant
+                self.message_history = self.message_history[-self.config.max_history * 2:]
+
+            # Get context-aware system message
+            system_message = self._get_context_aware_system_message(user_message)
 
             # Get response using Ell
-            response = self._get_chat_response(self.message_history)
+            response = self._get_chat_response(self.message_history, system_message)
 
             # Add assistant's response to history
             self.message_history.append(response)
