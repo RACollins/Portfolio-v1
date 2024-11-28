@@ -2,7 +2,7 @@
 name: "Richard Collins"
 title: "Senior Data Scientist"
 email: "placeholder@email.com"
-location: "Location, Country"
+location: "Tokyo, Japan"
 ---
 
 # Richard Collins
@@ -58,8 +58,8 @@ With over eight years of experience as a data scientist, I specialize in develop
 
 ### Education
 
-#### Master's Degree in Data Science
-*University Name | 2014 - 2016*
+#### Master's Degree in Data Analytics
+*University of Warwick | 2014 - 2016*
 - Thesis: "Advanced Forecasting Methods in Operational Planning"
 - GPA: 3.9/4.0
 

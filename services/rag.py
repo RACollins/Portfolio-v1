@@ -18,10 +18,11 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Download required NLTK data
 try:
-    nltk.data.find("punkt")
+    nltk.data.find("punkt_tab")
 except LookupError:
-    nltk.download("punkt")
+    nltk.download("punkt_tab")
 
+abs_base_path = os.path.dirname(os.path.abspath(__file__))
 
 @dataclass
 class Document:
@@ -36,9 +37,8 @@ class Document:
 @dataclass
 class RagConfig:
     # Paths for different document types
-    cv_path: str = "cv"
-    thoughts_path: str = "thoughts"
-    code_path: str = "pages"
+    cv_path: str = abs_base_path + "/../cv"
+    thoughts_path: str = abs_base_path + "/../thoughts"
 
     # Enhanced chunking configuration
     chunk_size: int = 500
@@ -46,7 +46,7 @@ class RagConfig:
     min_chunk_size: int = 100  # Minimum size for a valid chunk
 
     # Enhanced vector store configuration
-    vector_store_path: str = "vector_store"
+    vector_store_path: str = abs_base_path + "/../vector_store"
     index_file: str = "faiss.index"
     metadata_file: str = "metadata.json"
     embedding_model: str = "all-MiniLM-L6-v2"
@@ -54,11 +54,18 @@ class RagConfig:
 
     # Search configuration
     top_k: int = 3
-    similarity_threshold: float = 0.6
+    similarity_threshold: float = 0.4
 
     # File patterns to include/exclude
-    include_patterns: List[str] = ("*.md", "*.py")
-    exclude_patterns: List[str] = ("__pycache__", "*.pyc", ".git")
+    include_patterns: List[str] = ("*.md", "*.txt")
+    exclude_patterns: List[str] = (
+        "__pycache__",
+        "*.py",
+        "*.pyc",
+        ".git",
+        "*.ipynb",
+        "*.ipynb_checkpoints",
+    )
 
 
 class RagService:
@@ -99,33 +106,25 @@ class RagService:
             print(f"Error loading markdown file {file_path}: {e}")
             return ""
 
-    def load_python(self, file_path: Path) -> str:
-        """Load and parse Python files."""
+    def load_text(self, file_path: Path) -> str:
+        """Load and parse text files."""
         try:
-            with open(file_path, "r") as f:
-                content = f.read()
+            # Read the text file
+            with open(file_path, "r", encoding="utf-8") as f:
+                text = f.read()
 
-            # Extract docstrings and comments
-            # This is a simple implementation - could be enhanced with AST parsing
-            docstring_pattern = r'"""[\s\S]*?"""'
-            comment_pattern = r"#.*$"
+            # Create basic metadata
+            metadata = {
+                "filename": file_path.name,
+                "type": "text",
+            }
 
-            docstrings = " ".join(re.findall(docstring_pattern, content))
-            comments = " ".join(re.findall(comment_pattern, content, re.MULTILINE))
-
-            # Extract class and function names
-            class_pattern = r"class\s+(\w+)"
-            func_pattern = r"def\s+(\w+)"
-
-            classes = " ".join(re.findall(class_pattern, content))
-            functions = " ".join(re.findall(func_pattern, content))
-
-            return (
-                f"{docstrings}\n{comments}\nClasses: {classes}\nFunctions: {functions}"
-            )
+            # Combine metadata and content
+            metadata_text = " ".join(f"{k}: {v}" for k, v in metadata.items())
+            return f"{metadata_text}\n\n{text}"
 
         except Exception as e:
-            print(f"Error loading Python file {file_path}: {e}")
+            print(f"Error loading text file {file_path}: {e}")
             return ""
 
     def should_process_file(self, file_path: Path) -> bool:
@@ -147,10 +146,10 @@ class RagService:
         paths_to_scan = [
             Path(self.config.cv_path),
             Path(self.config.thoughts_path),
-            Path(self.config.code_path),
         ]
 
         for base_path in paths_to_scan:
+            print(base_path)
             if not base_path.exists():
                 print(f"Warning: Path {base_path} does not exist")
                 continue
@@ -161,8 +160,8 @@ class RagService:
 
                 if file_path.suffix == ".md":
                     self.documents[str(file_path)] = self.load_markdown(file_path)
-                elif file_path.suffix == ".py":
-                    self.documents[str(file_path)] = self.load_python(file_path)
+                elif file_path.suffix == ".txt":
+                    self.documents[str(file_path)] = self.load_text(file_path)
 
         return self.documents
 
@@ -227,7 +226,7 @@ class RagService:
         for file_path, content in self.documents.items():
             metadata = {
                 "source": str(file_path),
-                "type": "markdown" if file_path.endswith(".md") else "python",
+                "type": "markdown" if file_path.endswith(".md") else "txt",
             }
 
             # Create chunks for this document

@@ -96,17 +96,17 @@ async def post(req):
 ### Set up routes
 @rt("/")
 def get():
-    return LandingPage()
+    return (Title("Landing Page Title"), Container(LandingPage()))
 
 
 @rt("/about")
 def get():
-    return AboutPage()
+    return (Title("About Page Title"), Container(AboutPage()))
 
 
 @rt("/thoughts/{slug}")
 def get(slug: str):
-    return ThoughtPage(slug)
+    return (Title(f"Thoughts on {slug}"), Container(ThoughtPage(slug)))
 
 
 @rt("/cv.pdf")
@@ -114,13 +114,13 @@ def get():
     try:
         return FileResponse("static/cv.pdf")
     except:
-        return NotFoundPage()
+        return (Title("404 - Not Found"), Container(NotFoundPage()))
 
 
 # This should be the last route - it catches all unmatched paths
 @rt("/{path:path}")
 def get(path: str):
-    return NotFoundPage()
+    return (Title("404 - Not Found"), Container(NotFoundPage()))
 
 
 serve()

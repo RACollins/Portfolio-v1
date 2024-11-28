@@ -3,7 +3,7 @@ import os
 from dataclasses import dataclass
 import ell
 from ell import Message
-from services.rag import RagService, RagConfig
+from services.rag import RagService
 from pathlib import Path
 
 
@@ -62,9 +62,9 @@ class ChatService:
         return self.base_system_message
 
     @ell.complex(
-        model="gpt-4o-mini",  # Will be overridden by config
-        temperature=0.7,      # |
-        max_tokens=500,       # v
+        model="gpt-4o-mini", # <--- Should I just use the config here instead of redefining?
+        temperature=0.7,
+        max_tokens=500,
     )
     def _get_chat_response(self, message_history: List[Message], system_message: str) -> List[Message]:
         return [ell.system(system_message)] + message_history
