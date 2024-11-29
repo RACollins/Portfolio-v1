@@ -9,10 +9,10 @@ from pathlib import Path
 
 @dataclass
 class ChatConfig:
-    model: str = "gpt-4o-mini"
-    temperature: float = 0.7
-    max_tokens: int = 500
-    max_history: int = 10
+    # model: str = "gpt-4o-mini"
+    # temperature: float = 0.7
+    # max_tokens: int = 500
+    max_history: int = 10 # <- all except for this are hardcoded in the function decorator
 
 
 class ChatService:
@@ -62,7 +62,7 @@ class ChatService:
         return self.base_system_message
 
     @ell.complex(
-        model="gpt-4o-mini", # <--- Should I just use the config here instead of redefining?
+        model="gpt-4o-mini",
         temperature=0.7,
         max_tokens=500,
     )

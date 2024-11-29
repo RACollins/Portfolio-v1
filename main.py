@@ -32,9 +32,7 @@ if args.reload_tailwind:
 load_dotenv()
 
 ### Initialize chat service
-chat_service = ChatService(
-    ChatConfig(model="gpt-4o-mini", temperature=0.7, max_tokens=500)
-)
+chat_service = ChatService(ChatConfig(max_history=10))
 
 ### Set head elements
 local_tailwind = Link(rel="stylesheet", href="/css/output.css", type="text/css")
