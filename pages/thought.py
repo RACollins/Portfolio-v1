@@ -19,21 +19,21 @@ def Markdown(s, exts=md_exts, **kw):
     html = markdown(s, extensions=exts)
 
     # Add copy button to codehilite blocks
-    html = html.replace(
-        '<div class="codehilite">',
-        """<div class="codehilite relative group">
-            <button onclick="copyCode(this)"
-                    class="absolute top-2 right-2 p-1.5 rounded bg-darkblue-800 text-white 
-                           opacity-0 group-hover:opacity-100 hover:bg-darkblue-400 transition-all duration-200">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
-                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-                    <path d="M12 11v6"/>
-                    <path d="M9 14h6"/>
-                </svg>
-            </button>""",
-    )
+    # html = html.replace(
+    #     '<div class="codehilite">',
+    #     """<div class="codehilite relative group">
+    #         <button onclick="copyCode(this)"
+    #                 class="absolute top-2 right-2 p-1.5 rounded bg-darkblue-800 text-white 
+    #                        opacity-0 group-hover:opacity-100 hover:bg-darkblue-400 transition-all duration-200">
+    #             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" 
+    #                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    #                 <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+    #                 <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+    #                 <path d="M12 11v6"/>
+    #                 <path d="M9 14h6"/>
+    #             </svg>
+    #         </button>""",
+    # )
 
     return Div(NotStr(html), **kw)
 

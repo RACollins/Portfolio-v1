@@ -36,10 +36,10 @@ chat_service = ChatService(ChatConfig(max_history=10))
 
 ### Set head elements
 local_tailwind = Link(rel="stylesheet", href="/css/output.css", type="text/css")
-local_hl_styles = Link(rel="stylesheet", href="/css/hl-styles.css", type="text/css")
+# local_hl_styles = Link(rel="stylesheet", href="/css/hl-styles.css", type="text/css")
 favicon = Link(rel="icon", href="/assets/favicon.ico", type="image/x-icon")
 dark_mode_js = Script(src="/static/js/dark-mode.js")
-copy_code_js = Script(src="/static/js/copy-code.js")
+# copy_code_js = Script(src="/static/js/copy-code.js")
 chat_js = Script(src="/static/js/chat.js")
 
 # Define exception handlers for 404 errors
@@ -52,10 +52,16 @@ app, rt = fast_app(
     pico=False,
     hdrs=[
         local_tailwind,
-        local_hl_styles,
+        # local_hl_styles,
         favicon,
+        MarkdownJS(),
+        HighlightJS(
+            langs=["python", "bash", "yaml", "json"],
+            light="gradient-dark",
+            dark="github-dark",
+        ),
         dark_mode_js,
-        copy_code_js,
+        # copy_code_js,
         chat_js,
     ],
 )
