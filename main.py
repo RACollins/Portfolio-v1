@@ -56,9 +56,9 @@ app, rt = fast_app(
         favicon,
         MarkdownJS(),
         HighlightJS(
-            langs=["python", "bash", "yaml", "json"],
+            langs=["python"],
             light="gradient-dark",
-            dark="github-dark",
+            dark="tomorrow-night-blue",
         ),
         dark_mode_js,
         # copy_code_js,

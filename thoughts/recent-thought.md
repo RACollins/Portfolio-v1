@@ -35,3 +35,20 @@ def print_hello():
 ```
 
 Now we're cooking with gas!
+
+Now, I want to check that the highlighting is actually working. Let's write a little more code:
+
+```python
+@requires_authorization(roles=["ADMIN"])
+def somefunc(param1='', param2=0):
+    r'''A docstring'''
+    if param1 > param2: # interesting
+        print 'Gre\'ater'
+    return (param2 - param1 + 1 + 0b10l) or None
+
+class SomeClass:
+    pass
+
+>>> message = '''interpreter
+... prompt'''
+```
