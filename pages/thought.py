@@ -10,7 +10,7 @@ md_exts = ["extra", "codehilite", "nl2br", "smarty", "sane_lists"]
 
 
 def Markdown(s, exts=md_exts, **kw):
-    default_cls = "prose prose-lg prose-headings:text-darkblue-800 dark:prose-headings:text-gray-200 prose-darkblue-800 dark:prose-invert"
+    default_cls = "prose max-w-3xl prose-headings:text-darkblue-800 dark:prose-headings:text-gray-200 prose-p:text-darkblue-800 dark:prose-p:text-gray-200"
     if "cls" in kw:
         kw["cls"] = f"{default_cls} {kw['cls']}"
     else:

@@ -42,7 +42,7 @@ dark_mode_js = Script(src="/static/js/dark-mode.js")
 # copy_code_js = Script(src="/static/js/copy-code.js")
 chat_js = Script(src="/static/js/chat.js")
 
-# Define exception handlers for 404 errors
+### Define exception handlers for 404 errors
 exception_handlers = {404: lambda req, exc: NotFoundPage()}
 
 ### Set up FastHTML app
