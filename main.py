@@ -6,7 +6,7 @@ from pages.about import AboutPage
 from pages.thought import ThoughtPage
 from pages.not_found import NotFoundPage
 from components import ChatWidget
-from services.chat_service import ChatService, ChatConfig
+from services.chat import ChatService, ChatConfig
 from dotenv import load_dotenv
 
 ### Bring in command line arguments
@@ -32,19 +32,17 @@ if args.reload_tailwind:
 load_dotenv()
 
 ### Initialize chat service
-chat_service = ChatService(
-    ChatConfig(model="gpt-3.5-turbo", temperature=0.7, max_tokens=500)
-)
+chat_service = ChatService(ChatConfig(max_history=10))
 
 ### Set head elements
 local_tailwind = Link(rel="stylesheet", href="/css/output.css", type="text/css")
-local_hl_styles = Link(rel="stylesheet", href="/css/hl-styles.css", type="text/css")
+# local_hl_styles = Link(rel="stylesheet", href="/css/hl-styles.css", type="text/css")
 favicon = Link(rel="icon", href="/assets/favicon.ico", type="image/x-icon")
 dark_mode_js = Script(src="/static/js/dark-mode.js")
-copy_code_js = Script(src="/static/js/copy-code.js")
+# copy_code_js = Script(src="/static/js/copy-code.js")
 chat_js = Script(src="/static/js/chat.js")
 
-# Define exception handlers for 404 errors
+### Define exception handlers for 404 errors
 exception_handlers = {404: lambda req, exc: NotFoundPage()}
 
 ### Set up FastHTML app
@@ -54,10 +52,16 @@ app, rt = fast_app(
     pico=False,
     hdrs=[
         local_tailwind,
-        local_hl_styles,
+        # local_hl_styles,
         favicon,
+        MarkdownJS(),
+        HighlightJS(
+            langs=["python"],
+            light="gradient-dark",
+            dark="tomorrow-night-blue",
+        ),
         dark_mode_js,
-        copy_code_js,
+        # copy_code_js,
         chat_js,
     ],
 )
@@ -96,17 +100,17 @@ async def post(req):
 ### Set up routes
 @rt("/")
 def get():
-    return LandingPage()
+    return (Title("Landing Page Title"), Container(LandingPage()))
 
 
 @rt("/about")
 def get():
-    return AboutPage()
+    return (Title("About Page Title"), Container(AboutPage()))
 
 
 @rt("/thoughts/{slug}")
 def get(slug: str):
-    return ThoughtPage(slug)
+    return (Title(f"Thoughts on {slug}"), Container(ThoughtPage(slug)))
 
 
 @rt("/cv.pdf")
@@ -114,13 +118,13 @@ def get():
     try:
         return FileResponse("static/cv.pdf")
     except:
-        return NotFoundPage()
+        return (Title("404 - Not Found"), Container(NotFoundPage()))
 
 
 # This should be the last route - it catches all unmatched paths
 @rt("/{path:path}")
 def get(path: str):
-    return NotFoundPage()
+    return (Title("404 - Not Found"), Container(NotFoundPage()))
 
 
 serve()
