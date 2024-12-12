@@ -59,10 +59,10 @@ def TopBar():
                 cls="flex justify-end p-4",
             ),
             Img(
-                src="/assets/2020-07-06.jpg?height=40&width=40",
+                src="/assets/profile_pic_high_res.jpg",
                 alt="Profile",
-                width="{40}",
-                height="{40}",
+                width=100,
+                height=100,
                 cls="rounded-full",
             ),
             cls="flex justify-between items-center max-w-3xl mx-auto px-4 w-full",
