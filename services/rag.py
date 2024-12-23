@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 import re
 import numpy as np
 from sentence_transformers import SentenceTransformer
-import nltk
-from nltk.tokenize import sent_tokenize
+# import nltk   # <--- not needed yet
+# from nltk.tokenize import sent_tokenize  # <--- not needed yet
 import faiss
 import json
 
@@ -17,10 +17,10 @@ import json
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Download required NLTK data
-try:
+""" try:
     nltk.data.find("punkt_tab")
 except LookupError:
-    nltk.download("punkt_tab")
+    nltk.download("punkt_tab") """  # <--- not needed yet
 
 abs_base_path = os.path.dirname(os.path.abspath(__file__))
 
